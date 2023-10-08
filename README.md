@@ -1,6 +1,10 @@
 # ImGuiExtra
  ImGuiExtra is a set of custom ImGui widgets and utility functions for enhancing your ImGui-based user interfaces.  This header file defines various functions for creating custom widgets and UI elements.
 
+### Issues 
+
+write ideas for adding something, etc. to issues for developers, if you have posted anything with my utility, please indicate this repository
+
 
 
 ### what do you need to know?
