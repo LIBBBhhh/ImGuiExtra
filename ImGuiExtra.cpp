@@ -38,7 +38,7 @@ int currentSecond = -1;
 
 
 
-// Switch taken from -> https://github.com/ocornut/imgui/issues/1537#issuecomment-355562097
+
 	
 
 
