@@ -20,3 +20,13 @@ the fact that there is also a file with utilities without it will not start and 
 ```
 ImGuiX::Switch("print", &bool);
 ```
+
+
+```
+ImGuiX::RainbowText("print");
+
+```
+
+```
+ImGuiX::RainbowBegin(print", flags);
+```
