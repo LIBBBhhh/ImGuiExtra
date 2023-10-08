@@ -15,7 +15,7 @@ the fact that there is also a file with utilities without it will not start and 
 
 
 ### suppotrted version imgui
-1.84 Wip and Hihght
+1.84 Wip and higher
 
 
 
