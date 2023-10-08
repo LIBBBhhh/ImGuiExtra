@@ -38,6 +38,6 @@ ImGuiX::RainbowBegin("print", flags);
 
 
 ### demo window
-´´´
-ImGuiX::ShowDemo();
-´´´
+```
+ImGuiX::ShowDemoWindow();
+```
