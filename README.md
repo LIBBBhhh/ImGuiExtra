@@ -4,7 +4,10 @@
 
 
 ### what do you need to know?
-the fact that there is also a file with utilities without it will not start and will not work
+the fact that there is also a file with utilities without it will not start and will not work fortunately the file is already included in cpp, just include it in your main or menu
+
+### suppotrted version imgui
+1.84 Wip and Hihght
 
 
 
