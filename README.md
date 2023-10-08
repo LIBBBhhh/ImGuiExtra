@@ -28,5 +28,12 @@ ImGuiX::RainbowText("print");
 ```
 
 ```
-ImGuiX::RainbowBegin(print", flags);
+ImGuiX::RainbowBegin("print", flags);
 ```
+
+
+
+### demo window
+´´´
+ImGuiX::ShowDemo();
+´´´
