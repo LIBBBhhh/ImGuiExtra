@@ -24,7 +24,7 @@ ImGuiX::VerticalSliderFloat("Float", ImVec2(50, 100),  &floaaa, 1.5f, 50.0f);
 
 Or announce the function to them and use it on all sliders
 
-```С++
+```C++
 ImVec2 sizecfg = ImVec2(50, 100);
 ImGuiX::VerticalSliderFloat("Float", sizecfg,  &floaaa, 1.5f, 50.0f);
 ```
