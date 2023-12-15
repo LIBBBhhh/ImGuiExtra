@@ -1,6 +1,13 @@
 # ImGuiExtra
  ImGuiExtra is a set of custom ImGui widgets and utility functions for enhancing your ImGui-based user interfaces.  This header file defines various functions for creating custom widgets and UI elements.
+ # START USAGE
+```makefile
 
+LOCAL_SRC_FILES := \
+   
+    src/ImGuiX/ImGuiExtra.cpp \
+  
+```
 
 ### About of Update 1.61
 
