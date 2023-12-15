@@ -11,13 +11,13 @@
  * This header file defines various functions for creating custom widgets and UI elements.
  *
  * @author LIBHHHH/N1kryyy
- * @date October 4, 2023
+ * @Creation Date October 4, 2023
+ * @Update Date 11.21.23
  */
 
 
 
 
-#pragma once
 
 #include <iostream>
 #include <imgui.h>
@@ -28,10 +28,12 @@
 
 #include "Anim_Utils.h"
 
+#include "ImGuiExtra.h"
 #include <time.h>
 
-#define IMGUIX_VERSION "1.61"
+#define ImGuiX_Version "1.61"
 
+#define VERSION_CODE "745879"
 
 std::chrono::system_clock::time_point lastUpdateTime;
 int currentSecond = -1;
@@ -44,9 +46,9 @@ int currentSecond = -1;
 
 
 
-namespace ImGuiX {
+
   
-bool VerticalSliderFloat(const char* label, const ImVec2& size, float* v, float v_min, float v_max)
+bool ImGuiX::VerticalSliderFloat(const char* label, const ImVec2& size, float* v, float v_min, float v_max)
 {
     ImGui::PushID(label);
     
@@ -90,7 +92,7 @@ bool VerticalSliderFloat(const char* label, const ImVec2& size, float* v, float 
 
 
 
-	static void HelpMarker(const char* label, const char* desc, float fontSize)
+	static void ImGuiX::HelpMarker(const char* label, const char* desc, float fontSize)
 {
 	ImGui::Text(label);
 	ImGui::SameLine();
@@ -106,7 +108,7 @@ bool VerticalSliderFloat(const char* label, const ImVec2& size, float* v, float 
 }
 	
 	
-	void Switch(const char* label, bool* v)
+	void ImGuiX::Switch(const char* label, bool* v)
 {
     ImVec2 p = ImGui::GetCursorScreenPos();
     ImDrawList* draw_list = ImGui::GetWindowDrawList();
@@ -146,7 +148,7 @@ bool VerticalSliderFloat(const char* label, const ImVec2& size, float* v, float 
 	
 	// wait more 
 	
-	void Date()
+	void ImGuiX::Date()
 {
   
     std::time_t currentTime = std::time(nullptr);
@@ -163,7 +165,7 @@ bool VerticalSliderFloat(const char* label, const ImVec2& size, float* v, float 
 }
 
 
-void XClock()
+void ImGuiX::XClock()
 {
 
     std::time_t currentTime = std::time(nullptr);
@@ -191,7 +193,7 @@ void XClock()
     ImGui::Text("Elapsed Time: %.2f seconds", elapsedSeconds.count());
 }
 // Animation 
-    void RainbowText(const char* text)
+    void ImGuiX::RainbowText(const char* text)
 {
     ImVec4 rainbowColors[] = {
         ImVec4(1.0f, 0.0f, 0.0f, 1.0f),   
@@ -224,7 +226,8 @@ void XClock()
 // UnreleasedGuI::RainbowBegin("Window 1 with No Collapse", ImGuiWindowFlags_NoResize);
 
 
-void RainbowBegin(const char* title, bool* v = nullptr, ImGuiWindowFlags flags = 0)
+void ImGuiX::RainbowBegin(const char* title, bool* p_opn, ImGuiWindowFlags flags)
+
 {
     ImVec4 rainbowColors[] = {
         ImVec4(1.0f, 0.0f, 0.0f, 1.0f),   
@@ -250,7 +253,7 @@ void RainbowBegin(const char* title, bool* v = nullptr, ImGuiWindowFlags flags =
     lerpedColor.w = color1.w + lerpFactor * (color2.w - color1.w);
 
     ImGui::PushStyleColor(ImGuiCol_Text, lerpedColor);
-    ImGui::Begin(title, nullptr, flags);
+    ImGui::Begin(title, p_opn, flags);
     ImGui::PopStyleColor();
 
 
@@ -258,7 +261,7 @@ void RainbowBegin(const char* title, bool* v = nullptr, ImGuiWindowFlags flags =
     
 }
 //Fps
-void FpsTrack() {
+void ImGuiX::FpsTrack() {
     AnimUtil::UpdateDeltaTime();
 
     static float prevFps = 0.0f;
@@ -300,16 +303,16 @@ int sis = 20;
 bool sh = false;
 bool fps = false;
 
-void ShowDemoWindow(bool* v = nullptr) {
+void ImGuiX::ShowDemoWindow(bool* v) {
 
     ImGui::Begin("ImGuiX::SayHello!");
-	ImGuiX::HelpMarker("ImGuiExtra Ver:", IMGUIX_VERSION, 60.1f);
+	ImGuiX::HelpMarker("ImGuiExtra Ver: b%", ImGuiX_Version, 60.1f);
     if (ImGui::BeginTabBar("Functional")) {
         if (ImGui::BeginTabItem("functional")) {
-            Switch("Show Demo Window", &sh);
-            Switch("Show Fps", &fps);
+           ImGuiX::Switch("Show Demo Window", &sh);
+           ImGuiX::Switch("Show Fps", &fps);
 
-            Switch("Test", &window_Editor);
+           ImGuiX::Switch("Test", &window_Editor);
 			ImGuiX::VerticalSliderFloat("Float", sizecfg,  &floaaa, 1.5f, 50.0f);
 
             ImGui::EndTabItem();
@@ -317,15 +320,15 @@ void ShowDemoWindow(bool* v = nullptr) {
 
         if (ImGui::BeginTabItem("Clock_Wigets")) {
             
-			Date();
-            XClock();
+			ImGuiX::Date();
+            ImGuiX::XClock();
             
             ImGui::EndTabItem();
 			
         }
 		if (ImGui::BeginTabItem("Rainbow Elements")) {
         
-            RainbowText("HELLO WORLD!");
+            ImGuiX::RainbowText("HELLO WORLD!");
 
             ImGui::EndTabItem();
 			}
@@ -343,7 +346,7 @@ if (sh){
 }
 	if (fps){
 		
-		FpsTrack();
+		ImGuiX::FpsTrack();
 	}
 	if (window_Editor){
 		ImGuiX::RainbowBegin("Window Editor", &window_Editor);
@@ -397,14 +400,16 @@ if (sh){
 
 
 
-}
 
 
 
 
 
 
-            
+
+
+
+          
                 
 
 
