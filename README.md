@@ -18,7 +18,7 @@ LOCAL_SRC_FILES := \
 
 
 Usage: 
-```
+```C++
 ImGuiX::VerticalSliderFloat("Float", ImVec2(50, 100),  &floaaa, 1.5f, 50.0f);
 ```
 
@@ -41,13 +41,13 @@ ImGuiX::VerticalSliderFloat("Float", sizecfg,  &floaaa, 1.5f, 50.0f);
 
 
 Usage:
-```
+```C++
 ImGuiX::HelpMarker("ImGuiExtra Ver:", IMGUIX_VERSION, 60.1f);
 ```
 In this case, the font width where IMGUIX VERSION will be 60.1 float and the first is the text, say the label in front of the button 
 
 
-```
+```C++
 ImGuiX::HelpMarker("ImGuiExtra Ver:", "Uninfo", 60.1f);
 ```
 
@@ -73,23 +73,23 @@ the fact that there is also a file with utilities without it will not start and 
 
 
 ### examples 
-```
+```C++
 ImGuiX::Switch("print", &bool);
 ```
 
 
-```
+```C++
 ImGuiX::RainbowText("print");
 
 ```
 
-```
+```C++
 ImGuiX::RainbowBegin("print", flags);
 ```
 
 
 
 ### demo window
-```
+```C++
 ImGuiX::ShowDemoWindow();
 ```
