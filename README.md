@@ -3,7 +3,7 @@
  ### START USAGE
  .mk template:
 ```makefile
-
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/src/ImGuiX/
 LOCAL_SRC_FILES := \
    
     src/ImGuiX/ImGuiExtra.cpp \
