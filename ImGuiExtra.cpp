@@ -12,7 +12,7 @@
  *
  * @author LIBHHHH/N1kryyy
  * @Creation Date October 4, 2023
-
+ * @Update Date 26.12.23
  */
 
 
@@ -31,9 +31,9 @@
 #include "ImGuiExtra.h"
 #include <time.h>
 
-#define ImGuiX_Version "1.61"
+#define ImGuiX_Version "1.62"
 
-#define VERSION_CODE "745879"
+#define VERSION_CODE "745889"
 
 std::chrono::system_clock::time_point lastUpdateTime;
 int currentSecond = -1;
@@ -41,7 +41,172 @@ int currentSecond = -1;
 
 
 // Switch taken from -> https://github.com/ocornut/imgui/issues/1537#issuecomment-355562097
-	
+
+
+	ImVec4 accentcolor = ImColor(1.0f, 0.0f, 0.0f, 1.0f); 
+    
+    void ImGuiX::SetAccentColor(const ImColor& newColor) {
+        
+    accentcolor = newColor.Value;
+    
+}
+/*
+ImColor newAccentColor = ImColor(0.0f, 1.0f, 0.0f, 1.0f); 
+ ImGuiX::SetAccentColor(newAccentColor); 
+   
+*/
+#include <map>
+
+using namespace ImGui;
+
+bool ImGuiX::TabButton(const char* label, bool selected, const ImVec2& size) {
+    ImGuiWindow* window = GetCurrentWindow();
+    if (window->SkipItems)
+        return false;
+    ImGuiContext& g = *GImGui;
+    const ImGuiStyle& style = g.Style;
+    const ImGuiID id = window->GetID(label);
+    const ImVec2 labelSize = CalcTextSize(label, NULL, true);
+    ImVec2 pos = window->DC.CursorPos;
+    const ImRect bb(pos, ImVec2(pos.x + size.x, pos.y + size.y));
+    ItemSize(size, style.FramePadding.y);
+    if (!ItemAdd(bb, id))
+        return false;
+    bool hovered, held;
+    bool pressed = ButtonBehavior(bb, id, &hovered, &held);
+    if (pressed)
+        MarkItemEdited(id);
+    auto draw = GetWindowDrawList();
+    
+    
+    const ImU32 bgCol = GetColorU32(selected ? ImGuiCol_Button : ImGuiCol_ButtonActive);
+    draw->AddRectFilled(bb.Min, bb.Max, bgCol);
+
+    
+    float t = selected ? 1.0f : 0.0f;
+    float animSpeed = 0.50f; 
+    if (g.LastActiveId == g.CurrentWindow->GetID(label)) {
+        float tAnim = ImSaturate(g.LastActiveIdTimer / animSpeed);
+        t = selected ? (tAnim) : (0);
+    }
+    auto textColor = ImGui::GetColorU32(ImLerp(ImVec4(180 / 255.f, 180 / 255.f, 180 / 255.f, 180 / 255.f), ImVec4(accentcolor), t));
+
+    
+    draw->AddText(ImVec2(pos.x + size.x / 2 - labelSize.x / 2, pos.y + size.y / 2 - labelSize.y / 2), textColor, label);
+
+   
+    const float lineHeight = 3.0f;  
+    const float lineWidth = size.x;
+    const ImU32 lineColor = ImGui::GetColorU32(ImLerp(ImVec4(180 / 255.f, 180 / 255.f, 180 / 255.f, 180 / 255.f), ImVec4(accentcolor), t));
+    const float lineY = pos.y + size.y - lineHeight; 
+    draw->AddLine(ImVec2(pos.x, lineY), ImVec2(pos.x + lineWidth, lineY), lineColor, lineHeight); 
+
+    IMGUI_TEST_ENGINE_ITEM_INFO(id, label, window->DC.LastItemStatusFlags);
+    return pressed;
+}
+
+void ImGuiX::CenteredText(const char* text) {
+    ImVec2 window_size = ImGui::GetWindowSize();
+    ImVec2 text_size = ImGui::CalcTextSize(text);
+
+    int x = (window_size.x - text_size.x) / 2;
+    int y = static_cast<int>(ImGui::GetCursorPosY());
+
+    ImGui::SetCursorPosX(x);
+    ImGui::Text(text);
+    ImGui::SetCursorPosY(static_cast<float>(y + text_size.y));
+}
+
+void ImGuiX::NeonLineAnimation(){
+  ImVec2 P1, P2;
+  ImDrawList* pDrawList;
+  const auto& CurrentWindowPos = ImGui::GetWindowPos();
+  const auto& pWindowDrawList = ImGui::GetWindowDrawList();
+
+  P1 = ImVec2(1.000f, 1.000f);
+  P1.x += CurrentWindowPos.x;
+  P1.y += CurrentWindowPos.y;
+  P2 = ImVec2(1000.000f, 1.000f);
+  P2.x += CurrentWindowPos.x;
+  P2.y += CurrentWindowPos.y;
+  pDrawList = pWindowDrawList;
+
+  float neonColorR = sin(ImGui::GetTime() * 2.0f) * 0.5f + 0.5f;
+  float neonColorG = cos(ImGui::GetTime() * 2.0f) * 0.5f + 0.5f;
+  float neonColorB = sin(ImGui::GetTime() * 2.0f) * cos(ImGui::GetTime() * 2.0f) * 0.5f + 0.5f;
+
+  pDrawList->AddLine(P1, P2, ImColor(neonColorR, neonColorG, neonColorB, 1.000f), 3.000f);
+}
+
+void ImGuiX::Line(ImColor color){
+  
+  ImVec2 P1, P2;
+  ImDrawList* pDrawList;
+  const auto& CurrentWindowPos = ImGui::GetWindowPos();
+  const auto& pWindowDrawList = ImGui::GetWindowDrawList();
+  const auto& pBackgroundDrawList = ImGui::GetBackgroundDrawList();
+  const auto& pForegroundDrawList = ImGui::GetForegroundDrawList();
+
+  P1 = ImVec2(1.000f, 1.000f);
+  P1.x += CurrentWindowPos.x;
+  P1.y += CurrentWindowPos.y;
+  P2 = ImVec2(1000.000f, 1.000f);
+  P2.x += CurrentWindowPos.x;
+  P2.y += CurrentWindowPos.y;
+  pDrawList = pWindowDrawList;
+  pDrawList->AddLine(P1, P2, color, 3.000f);
+
+}
+
+void ImGuiX::LineRed(){
+  
+  ImVec2 P1, P2;
+  ImDrawList* pDrawList;
+  const auto& CurrentWindowPos = ImGui::GetWindowPos();
+  const auto& pWindowDrawList = ImGui::GetWindowDrawList();
+  const auto& pBackgroundDrawList = ImGui::GetBackgroundDrawList();
+  const auto& pForegroundDrawList = ImGui::GetForegroundDrawList();
+
+  P1 = ImVec2(1.000f, 1.000f);
+  P1.x += CurrentWindowPos.x;
+  P1.y += CurrentWindowPos.y;
+  P2 = ImVec2(1000.000f, 1.000f);
+  P2.x += CurrentWindowPos.x;
+  P2.y += CurrentWindowPos.y;
+  pDrawList = pWindowDrawList;
+  pDrawList->AddLine(P1, P2, ImColor(1.000f, 0.000f, 0.000f, 1.000f), 3.000f);
+
+}
+
+
+
+void ImGuiX::RainbowAnimationLine(float thickness) {
+    ImDrawList* draw_list = ImGui::GetWindowDrawList();
+ImVec2 menu_pos = ImGui::GetWindowPos();
+ImVec2 menu_size = ImGui::GetWindowSize();
+// float thickness = 8.0f; 
+
+static float color_offset = 0.0f; 
+color_offset += 0.004f; //<- Animation Speed
+
+
+
+ImU32 color1 = ImGui::GetColorU32(ImVec4(1.0, 0.0, 0.0, 1.0));
+ImU32 color2 = ImGui::GetColorU32(ImVec4(0.0, 1.0, 0.0, 1.0)); 
+ImU32 color3 = ImGui::GetColorU32(ImVec4(0.0, 0.0, 1.0, 1.0)); 
+ImU32 color4 = ImGui::GetColorU32(ImVec4(1.0, 1.0, 0.0, 1.0)); 
+
+ImVec2 end_pos = ImVec2(menu_pos.x + menu_size.x, menu_pos.y + thickness);
+
+
+draw_list->AddRectFilledMultiColor(
+    menu_pos,
+    end_pos,
+    ImColor::HSV(ImFmod(color_offset, 1.0f), 1.0f, 1.0f),
+    ImColor::HSV(ImFmod(color_offset + 0.25f, 1.0f), 1.0f, 1.0f),
+    ImColor::HSV(ImFmod(color_offset + 0.5f, 1.0f), 1.0f, 1.0f),
+    ImColor::HSV(ImFmod(color_offset + 0.75f, 1.0f), 1.0f, 1.0f));
+}
 
 
 
