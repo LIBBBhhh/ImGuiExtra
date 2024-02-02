@@ -35,7 +35,7 @@ write ideas for adding something, etc. to issues for developers, if you have pos
 
 
 ### suppotrted version imgui
-1.84 Wip and higher
+1.62 Wip and higher
 
 
 
